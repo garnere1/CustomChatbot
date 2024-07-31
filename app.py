@@ -12,13 +12,13 @@ moods = ["happy", "angry", "sad"]
 def home_page():
     return render_template("home.html", options = moods)
 
-@app.route("/submit_mood", methods=['GET', 'POST'])
-def submit_mood():
+@app.route("/submit", methods=['GET', 'POST'])
+def submit():
     if request.method == 'POST':
         print(request.form)
-        return "<p>Got it!</p>"
+        return render_template("home.html", options = moods)
     elif request.method == 'GET':
-        return "<p>Get!</p>"
+        return render_template("home.html", options = moods)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=3000)

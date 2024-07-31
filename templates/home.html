@@ -1,16 +1,17 @@
 {% extends "base.html" %}
-{% block page_title %}Welcome{% endblock %}
+{% block page_title %}Choose your chatbot options here:{% endblock %}
 {% block body %}
     {{ super() }}
-
-    <p>Choose your chatbot options here:</p>
-    <form action="{{ url_for('submit_mood') }}" method="POST">
+    <form action="{{ url_for('submit') }}" method="POST">
+        <h2>Your chatbot's name: </h2>
         <input type="text" name="name">
-        <select name="attitude" class="Input">
+        <h2>Your chatbot's mood: </h2>
+        <select name="mood" class="Input">
             {% for option in options %}
             <option value="{{ option }}">{{ option }}</option>
             {% endfor %}
         </select>
+        <h2>Submit your details: </h2>
         <input type="submit" name="submit_button">
     </form>
 {% endblock %}

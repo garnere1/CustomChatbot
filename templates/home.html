@@ -3,6 +3,14 @@
 {% block body %}
     {{ super() }}
 
-    <p>Upload a file here</p>
-    <button id="Enter" type="button" onclick="window.location.href = '/home' ; " class="button">Enter</button>
+    <p>Choose your chatbot options here:</p>
+    <form action="{{ url_for('submit_mood') }}" method="POST">
+        <input type="text" name="name">
+        <select name="attitude" class="Input">
+            {% for option in options %}
+            <option value="{{ option }}">{{ option }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" name="submit_button">
+    </form>
 {% endblock %}

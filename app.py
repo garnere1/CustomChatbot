@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, request
 from dotenv import load_dotenv
+from src.orchestrator import create_chatbot
 
 load_dotenv()
 
@@ -15,8 +16,8 @@ def home_page():
 @app.route("/submit", methods=['GET', 'POST'])
 def submit():
     if request.method == 'POST':
-        print(request.form)
-        return render_template("home.html", options = moods)
+        create_chatbot(name = request.form['name'], mood = request.form['mood'])
+        return render_template("chatbot.html")
     elif request.method == 'GET':
         return render_template("home.html", options = moods)
 

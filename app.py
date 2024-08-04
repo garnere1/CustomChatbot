@@ -16,8 +16,9 @@ def home_page():
 @app.route("/submit", methods=['GET', 'POST'])
 def submit():
     if request.method == 'POST':
-        create_chatbot(name = request.form['name'], mood = request.form['mood'])
-        return render_template("chatbot.html")
+        created_chain = create_chatbot(name = request.form['name'], mood = request.form['mood'])
+        answer = created_chain.invoke_chain("hello")
+        return render_template("chatbot.html", answer = answer.content)
     elif request.method == 'GET':
         return render_template("home.html", options = moods)
 

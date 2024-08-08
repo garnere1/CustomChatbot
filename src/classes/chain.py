@@ -35,8 +35,7 @@ class chain():
                 ],
             }
         )
-        print(answer)
-        return answer
+        return answer.content
 
 
 def init_chain(

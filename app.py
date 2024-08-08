@@ -22,11 +22,11 @@ def submit():
     elif request.method == 'GET':
         return render_template("home.html", options = moods)
 
-@app.route("/query", methods=['POST'])
-def query():
+@app.route("/get")
+def get_bot_response():
     created_chain = chain.get_chain()
-    question = request.form['question']
-    answer = created_chain.invoke_chain(question)
+    userText = request.args.get('msg')
+    answer = created_chain.invoke_chain(userText)
     return answer
 
 if __name__ == "__main__":

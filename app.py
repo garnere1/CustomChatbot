@@ -1,13 +1,14 @@
 import os
 from flask import Flask, render_template, request
 from dotenv import load_dotenv
-from src.orchestrator import create_chatbot, upload_files
+from src.orchestrator import create_chatbot
 from src.classes import chain
 
 load_dotenv()
 
 app = Flask(__name__)
 UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER")
+global chain_obj
 
 moods = ["happy", "angry", "sad"]
 
@@ -21,17 +22,16 @@ def submit():
         files = request.files.getlist("file")
         for uploaded_file in files:
             uploaded_file.save(f"{UPLOAD_FOLDER}/{uploaded_file.filename}")
-        upload_files(request.form['project-name'])
-        created_chain = create_chatbot(name = request.form['name'], mood = request.form['mood'])
+        global chain_obj
+        chain_obj = create_chatbot(name = request.form['name'], mood = request.form['mood'], project_name=request.form['project-name'])
         return render_template("chatbot.html")
     elif request.method == 'GET':
         return render_template("home.html", options = moods)
 
 @app.route("/get")
 def get_bot_response():
-    created_chain = chain.get_chain()
     userText = request.args.get('msg')
-    answer = created_chain.invoke_chain(userText)
+    answer = chain_obj.invoke_chain(userText, "123")
     return answer
 
 if __name__ == "__main__":

@@ -26,4 +26,3 @@ MANIFEST
 instance/
 .webassets-cache
 .DS_Store
-*.pyc

@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from src.classes import prompt, chain
+from src.classes import prompt, chain, chroma
 
 load_dotenv()
 
@@ -9,3 +9,7 @@ def create_chatbot(name: str, mood: str) -> chain:
     prompt_text = pr_obj.create_prompt_text()
     chain_obj = chain.init_chain(prompt_text)
     return chain_obj
+
+def upload_files(collection_name: str) -> str:
+    chroma_client = chroma.init_chroma(collection_name)
+    chroma_client.upload_files()

@@ -2,7 +2,9 @@
 {% block page_title %}Choose your chatbot options here:{% endblock %}
 {% block body %}
     {{ super() }}
-    <form action="{{ url_for('submit') }}" method="POST">
+    <form action="{{ url_for('submit') }}" method="POST" enctype="multipart/form-data">
+        <h2>Your project name: </h2>
+        <input type="text" name="project-name">
         <h2>Your chatbot's name: </h2>
         <input type="text" name="name">
         <h2>Your chatbot's mood: </h2>
@@ -11,6 +13,8 @@
             <option value="{{ option }}">{{ option }}</option>
             {% endfor %}
         </select>
+        <h2>Upload a file for the chatbot to use as knowledge: </h2>
+        <input type="file" name="file" multiple accept=".doc,.docx,.txt,.csv,.html,.json,.pdf"/>   
         <h2>Submit your details: </h2>
         <input type="submit" name="submit_button">
     </form>

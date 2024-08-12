@@ -1,12 +1,13 @@
 import os
 from flask import Flask, render_template, request
 from dotenv import load_dotenv
-from src.orchestrator import create_chatbot
+from src.orchestrator import create_chatbot, upload_files
 from src.classes import chain
 
 load_dotenv()
 
 app = Flask(__name__)
+UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER")
 
 moods = ["happy", "angry", "sad"]
 
@@ -17,6 +18,10 @@ def home_page():
 @app.route("/submit", methods=['GET', 'POST'])
 def submit():
     if request.method == 'POST':
+        files = request.files.getlist("file")
+        for uploaded_file in files:
+            uploaded_file.save(f"{UPLOAD_FOLDER}/{uploaded_file.filename}")
+        upload_files(request.form['project-name'])
         created_chain = create_chatbot(name = request.form['name'], mood = request.form['mood'])
         return render_template("chatbot.html")
     elif request.method == 'GET':

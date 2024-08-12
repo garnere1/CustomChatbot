@@ -1,20 +1,24 @@
 {% extends "base.html" %}
-{% block page_title %}Choose your chatbot options here:{% endblock %}
+{% block page_title %}Build your own custom chatbot!{% endblock %}
 {% block body %}
     {{ super() }}
+    <h1>Choose your chatbot options here:</h1>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
     <form action="{{ url_for('submit') }}" method="POST" enctype="multipart/form-data">
         <h2>Your project name: </h2>
-        <input type="text" name="project-name">
+        <input type="text" name="project-name" required>
         <h2>Your chatbot's name: </h2>
-        <input type="text" name="name">
+        <input type="text" name="name" required>
         <h2>Your chatbot's mood: </h2>
-        <select name="mood" class="Input">
+        <select name="mood" class="Input" required>
             {% for option in options %}
             <option value="{{ option }}">{{ option }}</option>
             {% endfor %}
         </select>
         <h2>Upload a file for the chatbot to use as knowledge: </h2>
-        <input type="file" name="file" multiple accept=".doc,.docx,.txt,.csv,.html,.json,.pdf"/>   
+        <input type="file" name="file" multiple accept=".doc,.docx,.txt,.csv,.html,.json,.pdf,.png,.jpg" required/>   
+        <h2>URL:</h2>
+        <input type="text" name="url">
         <h2>Submit your details: </h2>
         <input type="submit" name="submit_button">
     </form>

@@ -1,7 +1,8 @@
 import os
 from dotenv import load_dotenv
 import chromadb
-from langchain_community.document_loaders import TextLoader, Docx2txtLoader, UnstructuredCSVLoader, PyPDFLoader
+from langchain_community.document_loaders import TextLoader, Docx2txtLoader, UnstructuredCSVLoader, PyPDFLoader, SeleniumURLLoader
+from langchain_community.document_loaders.image import UnstructuredImageLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_chroma import Chroma
@@ -20,6 +21,8 @@ class chroma():
             collection_name=custom_name,
             embedding_function=embeddings,
         )
+        self.retriever = self.vector_store.as_retriever(search_type="similarity", search_kwargs={"k": 3})
+
 
     def upload_files(self) -> str:
         upload_folder = os.getenv("UPLOAD_FOLDER")
@@ -38,21 +41,24 @@ class chroma():
             elif file_upload.endswith(".csv"):
                 loader = UnstructuredCSVLoader(file_upload)
                 docs = loader.load()
+            elif file_upload.endswith(".png"):
+                loader = UnstructuredImageLoader(file_upload)
+                docs = loader.load()
             text_splitter = RecursiveCharacterTextSplitter(
                 chunk_size=1000, chunk_overlap=200, add_start_index=True
             )
             splits = text_splitter.split_documents(docs)
             all_docs.extend(splits)
             self.add_vector_store(all_docs)
+    
+    def load_url(self, url: str):
+        url_list = [url]
+        loader = SeleniumURLLoader(urls = url_list)
+        docs = loader.load()
+        self.add_vector_store(docs)
 
     def add_vector_store(self, docs: list) -> None:
         self.vector_store.add_documents(documents=docs)
-        if len(docs) == 1:
-            self.retriever = self.vector_store.as_retriever(search_type="similarity", search_kwargs={"k": 1})
-        elif len(docs) == 2:
-            self.retriever = self.vector_store.as_retriever(search_type="similarity", search_kwargs={"k": 2})
-        else:             
-            self.retriever = self.vector_store.as_retriever(search_type="similarity", search_kwargs={"k": 3})
 
 def init_chroma(
     custom_name: str

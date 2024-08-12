@@ -15,6 +15,7 @@ class chroma():
         custom_name: str
     ):
         super().__init__
+        self.project_name = custom_name
         self.vector_store = Chroma(
             collection_name=custom_name,
             embedding_function=embeddings,

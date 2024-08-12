@@ -26,6 +26,7 @@ class chain():
     ):
         super().__init__
         self.store = {}
+        self.chroma_obj = chroma_obj
         self.retriever = chroma_obj.retriever
         self.prompt_obj = prompt_obj
         self.context_prompt = ChatPromptTemplate.from_messages(

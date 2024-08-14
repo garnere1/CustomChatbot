@@ -1,3 +1,16 @@
 * {
     text-align: center;
 }
+
+label {
+    font-size: 1.5em;
+    display: block;
+}
+
+div {
+    display: inline-block;
+}
+
+.submit-button {
+    padding-top: 5%;
+}

@@ -20,7 +20,7 @@ except OSError:
     
 global chain_obj
 
-moods = ["Happy", "Angry", "Sad"]
+moods = ["Happy", "Angry", "Sad", "Scared", "Bored"]
 
 @app.route("/")
 def home_page():

@@ -2,24 +2,32 @@
 {% block page_title %}Build your own custom chatbot!{% endblock %}
 {% block body %}
     {{ super() }}
-    <h1>Choose your chatbot options here:</h1>
+    <h1>Choose your chatbot options:</h1>
     <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
     <form action="{{ url_for('submit') }}" method="POST" enctype="multipart/form-data">
-        <h2>Your project name: </h2>
-        <input type="text" name="project-name" required>
-        <h2>Your chatbot's name: </h2>
-        <input type="text" name="name" required>
-        <h2>Your chatbot's mood: </h2>
-        <select name="mood" class="Input" required>
-            {% for option in options %}
-            <option value="{{ option }}">{{ option }}</option>
-            {% endfor %}
-        </select>
-        <h2>Upload a file for the chatbot to use as knowledge: </h2>
-        <input type="file" name="file" multiple accept=".doc,.docx,.txt,.csv,.html,.json,.pdf,.png,.jpg" required/>   
-        <h2>URL:</h2>
-        <input type="text" name="url">
-        <h2>Submit your details: </h2>
-        <input type="submit" name="submit_button">
+        <div>
+            <label for="project-name">Project name:</label><br>
+            <input type="text" id="project-name" name="project-name" size="30" maxlength="40" required><br>
+        </div>
+        <div>
+            <label for="chatbot-name">Chatbot name:</label><br>
+            <input type="text" id="chatbot-name" name="name" size="30" maxlength="40" required><br>
+        </div>
+        <div>
+           <label for="chatbot-mood">Chatbot mood:</label><br>
+            <select name="mood" id="chatbot-mood" class="Input" required><br>
+                {% for option in options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select> 
+        </div>
+           <h2>Upload file(s) for the chatbot to use as knowledge </h2>
+            <label for="file">Select files:</label><br>
+            <input type="file" id="file" name="file" multiple accept=".doc,.docx,.txt,.csv,.html,.json,.pdf,.png,.jpg" required/><br> 
+            <h2>Input a URL to extract information from</h2>
+            <label for="url">URL:</label><br>
+            <input type="text" id="URL" name="url" size="30" pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)"><br>   
+        
+        <input class="submit-button" type="image" src="/static/submit.png" alt="Submit" width="90" height="48">
     </form>
 {% endblock %}

@@ -1,0 +1,38 @@
+* {
+    text-align: center;
+}
+
+label {
+    font-size: 1.5em;
+    display: block;
+}
+
+p {
+    display: inline-block;
+}
+
+div {
+    display: inline-block;
+}
+
+.submit-button {
+    padding-top: 5%;
+}
+
+.req {
+    color: red;
+}
+
+.opt {
+    color: blue;
+}
+
+.mood {
+    width: 8em;
+    font-size: 1em;
+}
+
+.input {
+    font-size: 1em;
+    width: 12em;
+}

@@ -32,7 +32,7 @@ def submit():
         files = request.files.getlist("file")
         global chain_obj
         chain_obj = create_chatbot(user_form=request.form, file_list=files)
-        return render_template("chatbot.html", name = request.form['name'])
+        return render_template("chatbot.html", name = request.form['name'], project=request.form["project-name"])
     elif request.method == 'GET':
         return render_template("home.html", options = moods)
 
@@ -53,7 +53,7 @@ def exit():
             print("All files deleted successfully.")
     except OSError:
         print("Error occurred while deleting files.")
-    return "Exit"
+    return render_template("home.html", options = moods)
 
 @app.errorhandler(404)
 def catch_all(err):

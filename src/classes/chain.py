@@ -15,8 +15,9 @@ from src.classes import chroma, prompt
 load_dotenv()
 
 openai_key = os.getenv("OPENAI_API_KEY")
+openai_model = os.getenv("OPENAI_MODEL")
 
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2, openai_api_key=openai_key)
+llm = ChatOpenAI(model=openai_model, temperature=0.2, openai_api_key=openai_key)
 
 class chain():
     def __init__(

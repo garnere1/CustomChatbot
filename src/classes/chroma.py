@@ -7,7 +7,10 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_chroma import Chroma
 
-embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+load_dotenv()
+embedding_model = os.getenv("OPENAI_EMBEDDING_MODEL")
+
+embeddings = OpenAIEmbeddings(model=embedding_model)
 load_dotenv()
 
 class chroma():

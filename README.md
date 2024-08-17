@@ -12,6 +12,8 @@ To deploy this project, create a .env file with the following variables:
 
 * OPENAI_API_KEY : This is your API key retrieved from OpenAI 
 * UPLOAD_FOLDER : This is a local directory path where the users uploaded files will be temporarily stored
+* OPENAI_MODEL : This is the llm you want to use from OpenAI
+* OPENAI_EMBEDDING_MODEL : This is the embedding model to use for the vector database
 
 Then, run the following commands:
 
